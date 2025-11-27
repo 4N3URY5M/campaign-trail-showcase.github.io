@@ -16630,6 +16630,8 @@ function endingPickerCONT() {
 // but probably wouldn't fit well here. Well, we had to resort to
 // another idea.
 
+window.generatedCabinetCache = window.generatedCabinetCache || {}; // store confirmation dates
+
 // for announcement dates
 function generateAnnouncementDate(tier) {
     const baseDate = new Date('2016-11-09T12:00:00Z'); // day after election
@@ -16709,6 +16711,16 @@ function generateCabinetCells(member, victoryType) {
 
 // the main function generator
 function generateCabinetTimeline(victoryType, playerEV, runningMateID, scores) {
+    // create a unique key for this specific contingent outcome
+    const cacheKey = `contingent_${window.CONTINGENT}`;
+
+    // if we've already generated a cabinet for this outcome, use the cached version
+    if (window.generatedCabinetCache[cacheKey]) {
+        const cachedData = window.generatedCabinetCache[cacheKey];
+        // re-use the cached HTML directly to ensure everything is identical
+        return cachedData.html;
+    }
+		
     const { sandersRelations, wallStreetScore, globalistScore, hawkScore, obamaLoyalty } = scores;
     let cabinet = [];
     let president, vicePresident, party, headerColor;
@@ -16805,7 +16817,8 @@ function generateCabinetTimeline(victoryType, playerEV, runningMateID, scores) {
 		},
 		attorneyGeneral: {
 			progressive: { name: "Xavier Becerra", img: "https://upload.wikimedia.org/wikipedia/commons/6/61/Xavier_Becerra%2C_Official_Portrait.JPG", formerRole: "U.S. Representative", state: "California" },
-			establishment: { name: "Tom Perez", img: "https://cwa-union.org/sites/default/files/migrated/cwafiles.org/national/issues/PolicyIssues/NLRB/Perez_photo2.jpg", formerRole: "Secretary of Labor", state: "Maryland" },
+			loyalist: { name: "Jennifer Granholm", img: "https://upload.wikimedia.org/wikipedia/commons/4/42/Secretary_Jennifer_Granholm_%28June_2021%29.jpg", formerRole: "Former Governor", state: "Michigan" },
+			incumbent: { name: "Loretta Lynch", img: "https://www.justice.gov/usao/biographies/images/spotlight-lynch-full.jpg", formerRole: "Attorney General", state: "New York" },
 			prosecutor: { name: "Preet Bharara", img: "https://static01.nyt.com/images/2013/06/10/world/asia/10-preet-interview-IndiaInk/10-preet-interview-IndiaInk-articleInline.jpg", formerRole: "U.S. Attorney, SDNY", state: "New York" },
 			biden_vp_loyalist: { name: "Sally Yates", img: "https://upload.wikimedia.org/wikipedia/commons/4/49/Sally_Yates.jpg", formerRole: "Deputy Attorney General", state: "Georgia" },
 			unity: { name: "Brian Sandoval", img: "https://www.ontheissues.org/Governor/Brian_Sandoval.jpg", formerRole: "Governor of Nevada (R)", state: "Nevada" }
@@ -16832,7 +16845,8 @@ function generateCabinetTimeline(victoryType, playerEV, runningMateID, scores) {
 			union: { name: "Richard Trumka", img: "https://aflcio.org/sites/default/files/migrate/files/Trumka-Bad-Trade-Deals-Kill-American-Jobs.jpg", formerRole: "President, AFL-CIO", state: "Pennsylvania" },
 			progressive_unity: { name: "Bernie Sanders", img: "https://cdn.mos.cms.futurecdn.net/ZMoRE73eiomr8gfjR2PPv5.jpg", formerRole: "U.S. Senator", state: "Vermont" },
 			establishment: { name: "Tom Perez", img: "https://cwa-union.org/sites/default/files/migrated/cwafiles.org/national/issues/PolicyIssues/NLRB/Perez_photo2.jpg", formerRole: "Secretary of Labor", state: "Maryland" },
-			biden_vp_loyalist: { name: "Seth Harris", img: "https://upload.wikimedia.org/wikipedia/commons/9/94/Seth_Harris_DOL.jpg", formerRole: "Deputy Secretary of Labor", state: "New York" }
+			biden_vp_loyalist: { name: "Seth Harris", img: "https://upload.wikimedia.org/wikipedia/commons/9/94/Seth_Harris_DOL.jpg", formerRole: "Deputy Secretary of Labor", state: "New York" },
+			corporate: { name: "Howard Schultz", img: "https://images.ctfassets.net/dkn3vuwtp1le/58JROkU1mUq4lNEWl8UDXP/3dd2e6e7b743004e5a1836bf2bd2c97d/howardschultz.jpg", formerRole: "CEO of Starbucks", state: "Washington" }
 		},
 		hhs: {
 			loyalist: { name: "Neera Tanden", img: "https://static.wikia.nocookie.net/althistory/images/b/b2/Tanden_neera.jpg", formerRole: "President, Center for American Progress", state: "Massachusetts" },
@@ -17012,11 +17026,12 @@ function generateCabinetTimeline(victoryType, playerEV, runningMateID, scores) {
 
         // Tier 2 appointments
 		const agPicks = [
-			(runningMateID === 212 && candidates.attorneyGeneral.establishment),
-			(playerEV < 290 && candidates.attorneyGeneral.unity),
-			(wallStreetScore >= 2 && candidates.attorneyGeneral.prosecutor),
-			(sandersRelations >= 3 && candidates.attorneyGeneral.progressive),
-			candidates.attorneyGeneral.biden_vp_loyalist
+			(runningMateID === 212 && candidates.attorneyGeneral.incumbent),
+            (runningMateID === 213 && candidates.attorneyGeneral.biden_vp_loyalist),
+            (playerEV < 290 && candidates.attorneyGeneral.unity),
+            (wallStreetScore >= 2 && candidates.attorneyGeneral.prosecutor),
+            (sandersRelations >= 3 && candidates.attorneyGeneral.progressive),
+            candidates.attorneyGeneral.loyalist
         ].filter(Boolean);
         pickAndAssign("Attorney General", agPicks, seals.attorneyGeneral, 2);
 
@@ -17031,8 +17046,8 @@ function generateCabinetTimeline(victoryType, playerEV, runningMateID, scores) {
         const transportPicks = [
 			(runningMateID === 215 && candidates.transportation.technocrat),
 			(playerEV < 290 && candidates.transportation.unity),
-			(runningMateID !== 215 && candidates.transportation.infrastructure),
-			candidates.transportation.establishment
+			(obamaLoyalty >= 3 && candidates.transportation.establishment),
+			candidates.transportation.infrastructure
         ].filter(Boolean);
         pickAndAssign("Secretary of Transportation", transportPicks, seals.transportation, 2);
 
@@ -17071,16 +17086,17 @@ function generateCabinetTimeline(victoryType, playerEV, runningMateID, scores) {
         
         const laborPicks = [
 			(sandersRelations >= 5 && playerEV > 330 && candidates.labor.progressive_unity),
-			(sandersRelations >= 3 && candidates.labor.union),
-			(runningMateID === 213 && candidates.labor.biden_vp_loyalist),
-			candidates.labor.establishment
+            (sandersRelations >= 3 && candidates.labor.union),
+            (runningMateID === 213 && candidates.labor.biden_vp_loyalist),
+            (wallStreetScore >= 1 && candidates.labor.corporate),
+            candidates.labor.establishment
         ].filter(Boolean);
         pickAndAssign("Secretary of Labor", laborPicks, seals.labor, 3);
 
         const hudPicks = [
 			([211, 214].includes(runningMateID) && candidates.hud.booker_vp_loyalist),
 			(sandersRelations >= 4 && candidates.hud.progressive),
-			(runningMateID !== 214 && candidates.hud.establishment),
+			(obamaLoyalty >= 2 && runningMateID !== 214 && candidates.hud.establishment),
 			candidates.hud.mayor
         ].filter(Boolean);
         pickAndAssign("Secretary of Housing & Urban Development", hudPicks, seals.hud, 3);
@@ -17294,6 +17310,9 @@ function generateCabinetTimeline(victoryType, playerEV, runningMateID, scores) {
 	}
 
 	html += `</tbody></table></div>`;
+	
+	window.generatedCabinetCache[cacheKey] = { html };
+	 
 	return html;
 }
 
@@ -17356,7 +17375,6 @@ endingPicker = (out, totv, aa, quickstats) => {
 	if (out === "win") {
 		checkAndApplyUnlocks(playerEV, campaignTrail_temp.running_mate_id);
 		unlockAchievement("Just Like Heaven");
-		if (playerEV >= 535) unlockAchievement("In Present Tense");
 		if (playerEV >= 332) unlockAchievement("Mother's Pride");
 		if (campaignTrail_temp.player_answers.includes(5184)) unlockAchievement("If I Was Your Girlfriend");
 		if (campaignTrail_temp.player_answers.includes(20988)) unlockAchievement("I Could Never Take The Place of Your Man");
@@ -17790,7 +17808,7 @@ tooltipProcessor.applyToObject(campaignTrail_temp.answer_feedback_json);
         { title: "Darkness", artist: "The Human League", coverLink: "https://lh3.googleusercontent.com/5UgvTLEebZkbRH9fiGuJajPDSur-nJXHpHKCJUDkQd3LR-hJBAsqeKevMhPKQnyNX7MbBRnQWWabh0u0=w544-h544-l90-rj", videoIds: ["vPfk7ktdqo4"] },
 		{ title: "Fall Into Place", artist: "Apartment", coverLink: "https://lh3.googleusercontent.com/G5iK-2BALHx_hHwB1LBmzHthvtt3BF8NB428Ub4sTkTYUv3bT6bI6lN9N1SZyIlzKTps58GudSFHWPXo=w544-h544-l90-rj", videoIds: ["IQaEg6GguLk"] },
         { title: "Fight Song", artist: "Rachel Platten", coverLink: "https://lh3.googleusercontent.com/AxQrFKHbt5jU_DiZihMhlJ3bxGLBy3rN6yfLlb0SJ68ay4FpnciNHNkD9WTXPBfbX1gCCZI5pFs2bJzU=w544-h544-l90-rj", videoIds: ["y5h_dukaB1I"] },
-		{ title: "The Ballad of Harambe", artist: "c a n d i d !", coverLink: "https://lh3.googleusercontent.com/F3ub3Ot4uC_HiLYe9RW-nxvMI__N7S5OkyGf_4bgU1MSIW4wp05es_6DF2GBAueUM-LVzIqxz8YuI1rY=w120-h120-l90-rj", videoIds: ["VX8omFoNHdQ"] },
+		{ title: "The Ballad of Harambe", artist: "c a n d i d !", coverLink: "https://lh3.googleusercontent.com/F3ub3Ot4uC_HiLYe9RW-nxvMI__N7S5OkyGf_4bgU1MSIW4wp05es_6DF2GBAueUM-LVzIqxz8YuI1rY=w544-h544-l90-rj", videoIds: ["VX8omFoNHdQ"] },
 		{ title: "Set Adrift on Memory Bliss", artist: "P.M. Dawn", coverLink: "https://lh3.googleusercontent.com/51qmaba8irr1qqXAcVc5CGV6bTiNNlevjEgh4cCDCntbqZP4dc1gcVlcf_lxA42D8CkZxDTW3L3SnPa4=w544-h544-l90-rj", videoIds: ["MurZoAE40VA"] },
 		{ title: "Woke Up This Morning (Chosen One Mix)", artist: "Alabama 3", coverLink: "https://lh3.googleusercontent.com/EHKdWSYR9Kenl61Gu87krAIFBJCRmrHdTGISW46gHmiAjuElSW18fCpkvVTlGYnKn3lzmartBT_7K3t6mQ=w544-h544-l90-rj", videoIds: ["slpCmg53qkU", "EvCdCKyLo_I", "6_0nDHcrrtE"] },
 		{ title: "What’s on Your Mind (Pure Energy)", artist: "Information Society", coverLink: "https://lh3.googleusercontent.com/ZWMW9K6oQVxTOOfPAy-7NLsta-kxbLXWEWgG7o4ZuO8c25KMs07dkGc-lHY0Udg9J9jdsSVsYJTgjq8=w544-h544-l90-rj", videoIds: ["lCrD81j6OD0"] },
@@ -21023,16 +21041,21 @@ cyoAdventure = function (a) {
         }
     }
 
-    const observerConfig = {
-        childList: true,
-        subtree: true
-    };
+    function initObserver() {
+        const gameWindow = document.getElementById("game_window");
+        
+        if (gameWindow) {
+            const observer = new MutationObserver(() => {
+                handleAdvisorUpdate();
+            });
 
-    const observer = new MutationObserver(() => {
-        handleAdvisorUpdate();
-    });
+            observer.observe(gameWindow, { childList: true, subtree: true });
+        } else {
+            setTimeout(initObserver, 200);
+        }
+    }
 
-    observer.observe(document.body, observerConfig);
+    initObserver();
 
 })();
 
