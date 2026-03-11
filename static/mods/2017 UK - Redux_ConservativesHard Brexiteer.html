@@ -290,7 +290,7 @@ const coalitions = [
 { id: 4, name: 'Labour and Lib Dems', weight: 0.4, parties: [201, 23], impossibleCoalitions: [6] },
 { id: 5, name: 'Labour and SNP', weight: 0.4, parties: [201, 166], impossibleCoalitions: [6] },
 { id: 6, name: 'Labour, LibDems and SNP', weight: 0.4, parties: [201, 23, 166], impossibleCoalitions: [] }, 
-{ id: 7, name: 'No Coalition', weight: 0.1, parties: [200, 201, 23, 203, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174], impossibleCoalitions: [] }]; 
+{ id: 7, name: 'No Coalition', weight: 0.00000000000000001, parties: [200, 201, 23, 203, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174], impossibleCoalitions: [] }]; 
 var possibleCoalitions = [];
 //is the name shown in the coalition table? true or false
 var coalitionNames = true;
@@ -398,11 +398,31 @@ if (!e.initDC) {
         used = true;
     }
 
+function ctsAchievement(achievement, difficultyChecker = true){
+		if(campaignTrail_temp.CTS){
+		unlockAchievement(achievement);
+	}
+}
+if (quickstats[0] >= 400 && campaignTrail_temp.difficulty_level_multiplier <=1) {
+ctsAchievement("A Strong and Stable Victory");
+}
+
+if (toryhomeseat.result[0].candidate !== 200) {
+ctsAchievement("Weak and Wobbly");
+}
+
+if (negotiationsDone && selectedCoalition.id == 3 && conservative >= -10 && campaignTrail_temp.difficulty_level_multiplier <=1) {
+ctsAchievement("Confidence and Supply");
+}
+
+if (quickstats[0] >= 326 && charisma <= -30 && campaignTrail_temp.difficulty_level_multiplier <=1) {
+ctsAchievement("I, Maybot");
+}
   if (!negotiationsDone) //Conservative Overwhelming Landslide
   if (!aftermath && quickstats[0] >= 430) //Conservative Overwhelming Landslide
 { 
 	e.header = "<h2>“And the results of our exit poll are in, and we can project that a Conservative landslide is imminent.”</h2>"
-	e.pages = [`<p>David Dimbleby continues “The Conservatives rolled the dice with this snap election to increase their majority as they go into the Brexit negotiations, and they emerge on the other side in total victory, in fact, a landslide victory for the ages, eclipsing that of Margaret Thatcher in 1983. This is shaping up to be the largest victory for a political party since 1832, when the Whig candidate Earl Grey picked up 441 seats. If this eclipses even that, you would have to look all the way back to 1685, when the Tory Party picked up 468 out of the 513 seats in England, before there even was a Prime Minister, the first Prime Minister being Robert Walpole, taking office in 1792. These are officially unprecedented times for our United Kingdom, never has one party controlled such an overwhelming portion of the Commons.</p>`,`<p>You’re sat in your campaign headquarters, and the room just erupts in cheers. You have done it. Not just done it, you have crushed it. It is now as clear as clear can be that you made the right decision to call this election, and completely eviscerate the field. You are heading into government with the largest mandate since well… ever. Still as you’re contemplating the magnitude of what just happened, the cheers in the room just never seem to end. Eventually they do, and now you have to think about getting back to your job as Prime Minister. Despite the overwhelming landslide you’ve achieved, there’s a lot on your plate. Brexit is the biggest elephant in the room, the country is demanding that your government can handle this as effectively as possible, as you’re scheduled to sit down in many meeting with Donald Tusk in Brussels. You may feel strong right now, the rabble-rousers on the fringes of the Conservative party falling quiet as their ability to obstruct evaporates, but if you fail to deal with this major issue approaching the country, you might not be in as strong a position as it appears on the surface. </p>`, `<p>Test</p>`]
+	e.pages = [`<p>David Dimbleby continues “The Conservatives rolled the dice with this snap election to increase their majority as they go into the Brexit negotiations, and they emerge on the other side in total victory, in fact, a landslide victory for the ages, eclipsing that of Margaret Thatcher in 1983. This is shaping up to be the largest victory for a political party since 1832, when the Whig candidate Earl Grey picked up 441 seats. If this eclipses even that, you would have to look all the way back to 1685, when the Tory Party picked up 468 out of the 513 seats in England, before there even was a Prime Minister, the first Prime Minister being Robert Walpole, taking office in 1792. These are officially unprecedented times for our United Kingdom, never has one party controlled such an overwhelming portion of the Commons.</p>`,`<p>You’re sat in your campaign headquarters, and the room just erupts in cheers. You have done it. Not just done it, you have crushed it. It is now as clear as clear can be that you made the right decision to call this election, and completely eviscerate the field. You are heading into government with the largest mandate since well… ever. Still as you’re contemplating the magnitude of what just happened, the cheers in the room just never seem to end. Eventually they do, and now you have to think about getting back to your job as Prime Minister. Despite the overwhelming landslide you’ve achieved, there’s a lot on your plate. Brexit is the biggest elephant in the room, the country is demanding that your government can handle this as effectively as possible, as you’re scheduled to sit down in many meeting with Donald Tusk in Brussels. You may feel strong right now, the rabble-rousers on the fringes of the Conservative party falling quiet as their ability to obstruct evaporates, but if you fail to deal with this major issue approaching the country, you might not be in as strong a position as it appears on the surface.</p>`]
 	e.image = "https://file.garden/Zmvf_kGfBgouz-z5/2017%20UK%20images/Cons%20Landslide%20Imminent.png";
 	return construct(0);
   }
@@ -1079,26 +1099,6 @@ else
 	e.image = "https://file.garden/Zmvf_kGfBgouz-z5/2017%20UK%20images/EndingFail.png";
 	return construct(0);
   }
-function ctsAchievement(achievement, difficultyChecker = true){
-		if(campaignTrail_temp.CTS){
-		unlockAchievement(achievement);
-	}
-}
-if (quickstats[0] >= 400 && campaignTrail_temp.difficulty_level_multiplier <=1) {
-ctsAchievement("A Strong and Stable Victory");
-}
-
-if (toryhomeseat.result[0].candidate !== 200) {
-ctsAchievement("Weak and Wobbly");
-}
-
-if (negotiationsDone && selectedCoalition.id == 3 && conservative >= -10 && campaignTrail_temp.difficulty_level_multiplier <=1) {
-ctsAchievement("Confidence and Supply");
-}
-
-if (quickstats[0] >= 326 && charisma <= -30 && campaignTrail_temp.difficulty_level_multiplier <=1) {
-ctsAchievement("I, Maybot");
-}
 
 }
 //Custom Results code – This just changes “Electoral votes” to “Seats Won”
@@ -3528,7 +3528,7 @@ campaignTrail_temp.election_json[0]["fields"].advisor_url = "https://file.garden
     updateUI(playlist);
   }
   
-  const style = document.createElement("style");
+const style = document.createElement("style");
   style.textContent = `
   #player {
       border: 3px solid #C9C9C9; /* Add your desired border style */
@@ -3594,9 +3594,13 @@ campaignTrail_temp.election_json[0]["fields"].advisor_url = "https://file.garden
       display: flex;
       margin-Top: 20px;
     }
+	#results_container, #overall_details_container {
+  height: 100%;
+  overflow-y: auto;
+}
     
   `;
-
+  
 document.head.appendChild(style);
 
 const gameWindow_player = document.getElementById("game_window");
