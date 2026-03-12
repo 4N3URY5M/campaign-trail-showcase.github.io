@@ -249,30 +249,6 @@ campaignTrail_temp.running_mate_json = [
             "candidate": 1000,
             "running_mate": 1001
         }
-    },
-    {
-        "model": "campaign_trail.running_mate",
-        "pk": 99977,
-        "fields": {
-            "candidate": 2000,
-            "running_mate": 2001
-        }
-    },
-    {
-        "model": "campaign_trail.running_mate",
-        "pk": 152458,
-        "fields": {
-            "candidate": 3000,
-            "running_mate": 3001
-        }
-    },
-    {
-        "model": "campaign_trail.running_mate",
-        "pk": 82659,
-        "fields": {
-            "candidate": 4000,
-            "running_mate": 4001
-        }
     }
 ]
 
@@ -730,6 +706,9 @@ style.textContent = `
 document.head.appendChild(style);
 const gameWindow_player = document.getElementById("game_window");
 
+setupMusicPlayer();
+
+/*
 $("#game_start").click((event) => {
     event.preventDefault();
     $("#election_id_button").click((event) => {
@@ -741,9 +720,9 @@ $("#game_start").click((event) => {
 		document.head.innerHTML += "<style>#results_container {color:#FFFFFF;} .inner_window_w_desc {background-color:#020202!important;}</style>";
 		document.getElementById("header").src = "https://file.garden/aNxawo8jlVkymd8s/joe%2008/election%20%2B%20music%20play/xaEI2bQ%20-%20Imgur.png";
 		document.body.background = "https://file.garden/aNxawo8jlVkymd8s/joe%2008/election%20%2B%20music%20play/oVU55s9%20-%20Imgur.png";
-		setupMusicPlayer();
 	})
 })
+*/
 
 campaignTrail_temp.modBoxTheme = {
     "header_color": "#d41b21",
