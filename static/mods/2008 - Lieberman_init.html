@@ -347,15 +347,47 @@ campaignTrail_temp.opponents_weighted_json = [
 
 corrr = `\n<h2>JOE '08</h2>`
 
-//#startcode
+const gameThemes = { //shamelessly lifted from MTE
+    "Web 2.0" : function() {
+        nct_stuff.themes[nct_stuff.selectedTheme].coloring_window = "#073f6e" 
+        nct_stuff.themes[nct_stuff.selectedTheme].coloring_title = "#d41b21" 
+		document.getElementsByClassName("game_header")[0].style.backgroundColor = nct_stuff.themes[nct_stuff.selectedTheme].coloring_title;
+		$("#game_window")[0].style.backgroundColor = nct_stuff.themes[nct_stuff.selectedTheme].coloring_window;
+        $(".container")[0].style.backgroundColor = "#073f6e"
+        $("#game_window")[0].style.coloring_window = "#073f6e" 
+        document.body.background = "https://file.garden/aNxawo8jlVkymd8s/joe%2008/election%20%2B%20music%20play/hQ0Xiv5%20-%20Imgur.png" 
+        document.body.style.backgroundSize = "100% auto"
+        document.getElementById("header").src = "https://file.garden/aNxawo8jlVkymd8s/joe%2008/election%20%2B%20music%20play/EGxcpxY%20-%20Imgur.png"
+    },
+	"Dark Mode" : function() {
+        nct_stuff.themes[nct_stuff.selectedTheme].coloring_window = "#020202" 
+        nct_stuff.themes[nct_stuff.selectedTheme].coloring_title = "#d41b21" 
+		document.getElementsByClassName("game_header")[0].style.backgroundColor = nct_stuff.themes[nct_stuff.selectedTheme].coloring_title;
+		$("#game_window")[0].style.backgroundColor = nct_stuff.themes[nct_stuff.selectedTheme].coloring_window;
+        $(".container")[0].style.backgroundColor = "#020202"
+        $("#game_window")[0].style.coloring_window = "#020202" 
+        document.body.background = "https://file.garden/aNxawo8jlVkymd8s/joe%2008/election%20%2B%20music%20play/oVU55s9%20-%20Imgur.png" 
+        document.body.style.backgroundSize = "100% auto"
+        document.getElementById("header").src = "https://file.garden/aNxawo8jlVkymd8s/joe%2008/election%20%2B%20music%20play/xaEI2bQ%20-%20Imgur.png"
+    }
+}
 
-nct_stuff.themes[nct_stuff.selectedTheme].coloring_title = "#d41b21";
-nct_stuff.themes[nct_stuff.selectedTheme].coloring_window = "#073f6e";
-document.getElementsByClassName("game_header")[0].style.backgroundColor = nct_stuff.themes[nct_stuff.selectedTheme].coloring_title;
-$("#game_window")[0].style.backgroundColor = nct_stuff.themes[nct_stuff.selectedTheme].coloring_window;
-$(".container")[0].style.backgroundColor = "#03345c";
-document.getElementById("header").src = "https://file.garden/aNxawo8jlVkymd8s/joe%2008/election%20%2B%20music%20play/EGxcpxY%20-%20Imgur.png";
-document.body.background = "https://file.garden/aNxawo8jlVkymd8s/joe%2008/election%20%2B%20music%20play/hQ0Xiv5%20-%20Imgur.png";
+const themePicker = document.getElementById("themePicker");
+const newThemePicker = document.createElement("select");
+newThemePicker.id = "themePicker";
+newThemePicker.addEventListener("change", gameThemePicked);
+let newInnerHTML = "";
+for(theme in gameThemes) {
+    newInnerHTML += `<option value="${theme}">${theme}</option>`;
+}
+newThemePicker.innerHTML = newInnerHTML;
+themePicker.replaceWith(newThemePicker);
+
+function gameThemePicked() {
+    gameThemes[newThemePicker.value]();
+}
+
+gameThemePicked();
 
 document.head.innerHTML += `<link
 	rel="stylesheet"
@@ -401,6 +433,13 @@ function addDynamicCSS() {
 		}
 		.inner_window_w_desc h3 {
 			color: white;
+		}
+		body {
+			background-position: center;
+			display: flex !important;
+		}
+		#opponent_selection_id_back {
+	    	display: none;
 		}
 	`;
 	var styleElem = document.createElement('style');
@@ -785,22 +824,6 @@ const gameWindow_player = document.getElementById("game_window");
 
 setupMusicPlayer();
 
-/*
-$("#game_start").click((event) => {
-    event.preventDefault();
-    $("#election_id_button").click((event) => {
-        event.preventDefault();
-		e.election_json[0].fields.image_url = "https://file.garden/aNxawo8jlVkymd8s/joe%2008/election%20%2B%20music%20play/3QcUs7k%20-%20Imgur.png"
-		nct_stuff.themes[nct_stuff.selectedTheme].coloring_window = "#020202";
-		$("#game_window")[0].style.backgroundColor = "#020202";
-		$(".container")[0].style.backgroundColor = "#020202";
-		document.head.innerHTML += "<style>#results_container {color:#FFFFFF;} .inner_window_w_desc {background-color:#020202!important;}</style>";
-		document.getElementById("header").src = "https://file.garden/aNxawo8jlVkymd8s/joe%2008/election%20%2B%20music%20play/xaEI2bQ%20-%20Imgur.png";
-		document.body.background = "https://file.garden/aNxawo8jlVkymd8s/joe%2008/election%20%2B%20music%20play/oVU55s9%20-%20Imgur.png";
-	})
-})
-*/
-
 campaignTrail_temp.modBoxTheme = {
     "header_color": "#d41b21",
     "header_text_color": "#ffffff",
@@ -810,6 +833,15 @@ campaignTrail_temp.modBoxTheme = {
     "secondary_color": "#d41b21",
     "ui_text_color": "#FFFFFF"
 }
+
+let z = new MutationObserver((mutationsList, observer) => {
+    let runningMateSummary = document.querySelector("#running_mate_summary");
+    if (runningMateSummary) {
+        $("#running_mate_id_button").click();
+        observer.disconnect()
+    }
+});
+z.observe(document, { subtree: true, childList: true });
 
 campaignTrail_temp.achievements = {
 	"Joe's New Deal" : {
@@ -863,4 +895,3 @@ campaignTrail_temp.achievements = {
 		"cannotBeCheated" : true
 	},
 }
-//#endcode
