@@ -369,6 +369,28 @@ const gameThemes = { //shamelessly lifted from MTE
         document.body.background = "https://file.garden/aNxawo8jlVkymd8s/joe%2008/election%20%2B%20music%20play/oVU55s9%20-%20Imgur.png" 
         document.body.style.backgroundSize = "100% auto"
         document.getElementById("header").src = "https://file.garden/aNxawo8jlVkymd8s/joe%2008/election%20%2B%20music%20play/xaEI2bQ%20-%20Imgur.png"
+    },
+	"Frutiger Aero" : function() {
+        nct_stuff.themes[nct_stuff.selectedTheme].coloring_window = "#3FA1E2" 
+        nct_stuff.themes[nct_stuff.selectedTheme].coloring_title = "#9FCE26" 
+		document.getElementsByClassName("game_header")[0].style.backgroundColor = nct_stuff.themes[nct_stuff.selectedTheme].coloring_title;
+		$("#game_window")[0].style.backgroundColor = nct_stuff.themes[nct_stuff.selectedTheme].coloring_window;
+        $(".container")[0].style.backgroundColor = "#3FA1E2"
+        $("#game_window")[0].style.coloring_window = "#9FCE26" 
+        document.body.background = "https://file.garden/aNxawo8jlVkymd8s/joe%2008/election%20%2B%20music%20play/frutiger%20aero/frutigerAeroBG.png" 
+        document.body.style.backgroundSize = "100% auto"
+        document.getElementById("header").src = "https://file.garden/aNxawo8jlVkymd8s/joe%2008/election%20%2B%20music%20play/frutiger%20aero/frutigerAeroBanner.png"
+    },
+	"CLassic" : function() {
+        nct_stuff.themes[nct_stuff.selectedTheme].coloring_window = "#020202" 
+        nct_stuff.themes[nct_stuff.selectedTheme].coloring_title = "#d41b21" 
+		document.getElementsByClassName("game_header")[0].style.backgroundColor = nct_stuff.themes[nct_stuff.selectedTheme].coloring_title;
+		$("#game_window")[0].style.backgroundColor = nct_stuff.themes[nct_stuff.selectedTheme].coloring_window;
+        $(".container")[0].style.backgroundColor = "#020202"
+        $("#game_window")[0].style.coloring_window = "#020202" 
+        document.body.background = "https://file.garden/aNxawo8jlVkymd8s/joe%2008/election%20%2B%20music%20play/oVU55s9%20-%20Imgur.png" 
+        document.body.style.backgroundSize = "100% auto"
+        document.getElementById("header").src = "https://file.garden/aNxawo8jlVkymd8s/joe%2008/election%20%2B%20music%20play/xaEI2bQ%20-%20Imgur.png"
     }
 }
 
