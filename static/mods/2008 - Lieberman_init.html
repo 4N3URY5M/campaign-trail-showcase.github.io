@@ -366,7 +366,7 @@ const gameThemes = { //shamelessly lifted from MTE
 		$("#game_window")[0].style.backgroundColor = nct_stuff.themes[nct_stuff.selectedTheme].coloring_window;
         $(".container")[0].style.backgroundColor = "#020202"
         $("#game_window")[0].style.coloring_window = "#020202" 
-        document.body.background = "https://file.garden/aNxawo8jlVkymd8s/joe%2008/election%20%2B%20music%20play/oVU55s9%20-%20Imgur.png" 
+        document.body.background = "https://file.garden/aNxawo8jlVkymd8s/joe%2008/election%20%2B%20music%20play/dark%20mode/darkModeBG.png" 
         document.body.style.backgroundSize = "100% auto"
         document.getElementById("header").src = "https://file.garden/aNxawo8jlVkymd8s/joe%2008/election%20%2B%20music%20play/xaEI2bQ%20-%20Imgur.png"
     },
@@ -380,17 +380,6 @@ const gameThemes = { //shamelessly lifted from MTE
         document.body.background = "https://file.garden/aNxawo8jlVkymd8s/joe%2008/election%20%2B%20music%20play/frutiger%20aero/frutigerAeroBG.png" 
         document.body.style.backgroundSize = "100% auto"
         document.getElementById("header").src = "https://file.garden/aNxawo8jlVkymd8s/joe%2008/election%20%2B%20music%20play/frutiger%20aero/frutigerAeroBanner.png"
-    },
-	"CLassic" : function() {
-        nct_stuff.themes[nct_stuff.selectedTheme].coloring_window = "#020202" 
-        nct_stuff.themes[nct_stuff.selectedTheme].coloring_title = "#d41b21" 
-		document.getElementsByClassName("game_header")[0].style.backgroundColor = nct_stuff.themes[nct_stuff.selectedTheme].coloring_title;
-		$("#game_window")[0].style.backgroundColor = nct_stuff.themes[nct_stuff.selectedTheme].coloring_window;
-        $(".container")[0].style.backgroundColor = "#020202"
-        $("#game_window")[0].style.coloring_window = "#020202" 
-        document.body.background = "https://file.garden/aNxawo8jlVkymd8s/joe%2008/election%20%2B%20music%20play/oVU55s9%20-%20Imgur.png" 
-        document.body.style.backgroundSize = "100% auto"
-        document.getElementById("header").src = "https://file.garden/aNxawo8jlVkymd8s/joe%2008/election%20%2B%20music%20play/xaEI2bQ%20-%20Imgur.png"
     }
 }
 
@@ -541,46 +530,34 @@ window.updateUI=updateUI
 function setupMusicPlayer() {
 	playlist = new Playlist(); 
 	const song1 = new Song(
-		"Wherein Lies Continue",
-		"Slipknot",
-		"https://file.garden/aNxawo8jlVkymd8s/joe%2008/mucsci/GGoHKWN%20-%20Imgur.jpg",
-		"https://audio.jukehost.co.uk/vykccpZaCchTl5pgzL1fMfdqZXb0F3a2"
+		"Go Joe Song",
+		"Cody S. Harris",
+		"https://file.garden/aNxawo8jlVkymd8s/joe%2008/mucsci/Dxrgu2d%20-%20Imgur.jpg",
+		"https://audio.jukehost.co.uk/dAs3QIXMoHZAkWy8XnBY65A26UtxQo1M"
 	);
 	const song2 = new Song(
-		"Gehenna",
-		"Slipknot",
-		"https://file.garden/aNxawo8jlVkymd8s/joe%2008/mucsci/GGoHKWN%20-%20Imgur.jpg",
-		"https://audio.jukehost.co.uk/MIotDPRFO8BSynkewW4Q9MEhC75mALfj"
-	);
-	const song3 = new Song(
-		"16 Military Wives",
-		"The Decemberists",
-		"https://file.garden/aNxawo8jlVkymd8s/joe%2008/mucsci/8n3yUdi%20-%20Imgur.jpg",
-		"https://audio.jukehost.co.uk/Pp8OtMGFPaAyMFi68i0TDEzq9kvtXMHB"
-	);
-	const song4 = new Song(
 		"Bangers + Mash",
 		"Radiohead",
 		"https://file.garden/aNxawo8jlVkymd8s/joe%2008/mucsci/bUt66UP%20-%20Imgur.jpg",
 		"https://audio.jukehost.co.uk/7qCMmBijjWArNxe6D7QJtTL8BBS2ej0N"
 	);
+	const song3 = new Song(
+		"American Terrorist",
+		"Lupe Fiasco feat. Matthew Santos",
+		"https://file.garden/aNxawo8jlVkymd8s/joe%2008/mucsci/foodAndLiquor.png",
+		"https://audio.jukehost.co.uk/1GtDQjLYAzFppcCrQ376GFrbHZe8IhcB"
+	);
+	const song4 = new Song(
+		"Clock With No Hands",
+		"The Roots",
+		"https://file.garden/aNxawo8jlVkymd8s/joe%2008/mucsci/gameTheory.png",
+		"https://audio.jukehost.co.uk/K6N2ek88DEWPtUcfqXdBne97cFmuhgks"
+	);
 	const song5 = new Song(
-		"Windowlicker",
-		"Aphex Twin",
-		"https://file.garden/aNxawo8jlVkymd8s/joe%2008/mucsci/WHMtW1y%20-%20Imgur.png",
-		"https://audio.jukehost.co.uk/wrhCOOgf59tz5AIM0siL8x6xCy9RnvRO"
-	);
-	const song6 = new Song(
-		"Miss Independent",
-		"Ne-Yo",
-		"https://file.garden/aNxawo8jlVkymd8s/joe%2008/mucsci/J0AK5sB%20-%20Imgur.png",
-		"https://audio.jukehost.co.uk/XFvD18Tc2DNFRskiQ04npHWMdQfaV6nL"
-	);
-	const song7 = new Song(
-		"Go Joe Song",
-		"Cody S. Harris",
-		"https://file.garden/aNxawo8jlVkymd8s/joe%2008/mucsci/Dxrgu2d%20-%20Imgur.jpg",
-		"https://audio.jukehost.co.uk/dAs3QIXMoHZAkWy8XnBY65A26UtxQo1M"
+		"Kids with Guns",
+		"Gorillaz",
+		"https://file.garden/aNxawo8jlVkymd8s/joe%2008/mucsci/demonDays.png",
+		"https://audio.jukehost.co.uk/KOcyXBzEv7a9Xei4MRvoFmhXgeG7e3pR"
 	);
 	
 	playlist.addSong(song1);
@@ -588,8 +565,6 @@ function setupMusicPlayer() {
 	playlist.addSong(song3);
 	playlist.addSong(song4);
 	playlist.addSong(song5);
-	playlist.addSong(song6);
-	playlist.addSong(song7);
 	
 	const playerContainer = document.createElement("div");
 	playerContainer.id = "player";
